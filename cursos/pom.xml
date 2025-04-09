@@ -12,7 +12,7 @@
 	<artifactId>cursos</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>cursos</name>
-	<description>Exercitanto modelo  → Controller → Service → Repository → Banco de Dados</description>
+	<description>Exercitanto modelo→ Controller → Service → Repository → Banco de Dados</description>
 	<url/>
 	<licenses>
 		<license/>
