@@ -6,20 +6,17 @@ import lombok.Setter;
 
 @Entity
 @Table(name = "alunos")
+@Getter
+@Setter
 public class Aluno {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Getter
     private Long id;
 
     @Column(nullable = false)
-    @Getter
-    @Setter
     private String nome;
 
-    @Column(nullable = false)
-    @Getter
-    @Setter
     @ManyToOne
+    @JoinColumn(name = "curso_id")
     private Curso curso;
 }

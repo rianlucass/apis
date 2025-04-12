@@ -23,6 +23,7 @@ public class CursoService {
         curso = cursoRepository.save(curso);
 
         CursoResponseDTO responseDTO = new CursoResponseDTO();
+        responseDTO.setId(curso.getId());
         responseDTO.setNome(curso.getNome());
         responseDTO.setCargaHoraria(curso.getCargaHoraria());
         return responseDTO;

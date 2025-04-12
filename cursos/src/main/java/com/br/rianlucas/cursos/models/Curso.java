@@ -4,21 +4,23 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
+
 @Entity
 @Table(name = "cursos")
+@Getter
+@Setter
 public class Curso {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Getter
     private Long id;
 
     @Column(nullable = false)
-    @Getter
-    @Setter
     private String nome;
 
     @Column(nullable = false)
-    @Getter
-    @Setter
     private int cargaHoraria;
+
+    @OneToMany(mappedBy = "curso", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Aluno> alunos;
 }

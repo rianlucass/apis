@@ -8,5 +8,5 @@ import lombok.Setter;
 @Setter
 public class AlunoRequestDTO {
     private String nome;
-    private Curso curso;
+    private Long cursoId;
 }
