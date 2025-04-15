@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -44,6 +45,34 @@ public class AlunoService {
             dto.setNome(aluno.getNome());
             return dto;
         }).collect(Collectors.toList());
+    }
+
+    public AlunoResponseDTO atualizar(Long id, AlunoRequestDTO dto) {
+        Aluno aluno = alunoRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Aluno não encontrado"));
+        aluno.setNome(dto.getNome());
+
+        Curso curso = cursoRepository.findById(dto.getCursoId())
+                .orElseThrow(() -> new RuntimeException("Curso não encontrado"));
+        aluno.setCurso(curso);
+        aluno = alunoRepository.save(aluno);
+
+        AlunoResponseDTO responseDTO = new AlunoResponseDTO();
+        responseDTO.setId(aluno.getId());
+        responseDTO.setNome(aluno.getNome());
+        responseDTO.setCurso(aluno.getCurso().getNome());
+
+        return responseDTO;
+    }
+
+    public boolean deletarAluno(Long id) {
+        Optional<Aluno> optionalAluno = alunoRepository.findById(id);
+        if (optionalAluno.isEmpty()) {
+            return false;
+        }
+
+        alunoRepository.deleteById(id);
+        return true;
     }
 
 }

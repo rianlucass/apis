@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -32,10 +33,36 @@ public class CursoService {
     public List<CursoResponseDTO> listar() {
         return cursoRepository.findAll().stream().map(curso -> {
             CursoResponseDTO responseDTO = new CursoResponseDTO();
+            responseDTO.setId(curso.getId());
             responseDTO.setNome(curso.getNome());
             responseDTO.setCargaHoraria(curso.getCargaHoraria());
             return responseDTO;
         }).collect(Collectors.toList());
+    }
+
+    public CursoResponseDTO atualizar(Long id, CursoRequestDTO dto) {
+        Curso curso = cursoRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("curso não encontrado"));
+
+        curso.setCargaHoraria(dto.getCargaHoraria());
+        curso.setNome(dto.getNome());
+        curso = cursoRepository.save(curso);
+
+        CursoResponseDTO responseDTO = new CursoResponseDTO();
+        responseDTO.setId(curso.getId());
+        responseDTO.setNome(curso.getNome());
+        responseDTO.setCargaHoraria(curso.getCargaHoraria());
+
+        return responseDTO;
+    }
+
+    public boolean deletarCurso(Long id) {
+        Optional<Curso> optionalCurso = cursoRepository.findById(id);
+        if (optionalCurso.isEmpty()) {
+            return false;
+        }
+        cursoRepository.deleteById(id);
+        return true;
     }
 
 }

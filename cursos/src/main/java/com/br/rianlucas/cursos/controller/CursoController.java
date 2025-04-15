@@ -34,6 +34,18 @@ public class CursoController {
         return ResponseEntity.status(HttpStatus.CREATED).body(criado);
     }
 
+    @PutMapping("cursos/{id}")
+    public ResponseEntity<CursoResponseDTO> atualizarCurso(@PathVariable Long id, @RequestBody CursoRequestDTO dto) {
+        CursoResponseDTO responseDTO = cursoService.atualizar(id, dto);
+        return ResponseEntity.ok(responseDTO);
+    }
+
+    @PutMapping("alunos/{id}")
+    public ResponseEntity<AlunoResponseDTO> atualizarAluno(@PathVariable Long id, @RequestBody AlunoRequestDTO dto) {
+        AlunoResponseDTO responseDTO = alunoService.atualizar(id, dto);
+        return ResponseEntity.ok(responseDTO);
+    }
+
     @GetMapping("/alunos")
     public List<AlunoResponseDTO> listarAlunos() {
         return alunoService.listar();
@@ -44,4 +56,22 @@ public class CursoController {
         return cursoService.listar();
     }
 
+    @DeleteMapping("/alunos/{id}")
+    public ResponseEntity<Void> deletarAluno(@PathVariable Long id) {
+        boolean deletado = alunoService.deletarAluno(id);
+        if (deletado) {
+            return ResponseEntity.noContent().build();
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @DeleteMapping("/cursos/{id}")
+    public ResponseEntity<Void> deletarCurso(@PathVariable Long id) {
+        boolean deletado = cursoService.deletarCurso(id);
+        if (deletado) {
+            return ResponseEntity.noContent().build();
+        } else
+            return ResponseEntity.notFound().build();
+    }
 }
