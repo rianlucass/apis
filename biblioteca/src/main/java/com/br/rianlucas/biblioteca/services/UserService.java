@@ -45,7 +45,6 @@ public class UserService {
         return responseDTO;
     }
 
-
 /*
     public UserResponseDTO updateUser(String id, UserRequestDTO dto) {
         User user = userRepository.findById(id).orElseThrow(() ->

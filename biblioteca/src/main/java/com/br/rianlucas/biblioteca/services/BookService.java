@@ -4,13 +4,11 @@ import com.br.rianlucas.biblioteca.dtos.request.BookRequestDTO;
 import com.br.rianlucas.biblioteca.dtos.response.BookResponseDTO;
 import com.br.rianlucas.biblioteca.models.Book;
 import com.br.rianlucas.biblioteca.repositories.BookRepository;
-import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
